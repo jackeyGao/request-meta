@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %} Request Meta {% endblock %}
+
+{% block header %}
+<style>
+    .container {
+      height: 100%;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+  <div class="index">
+    <div class="logo">
+      <img src="/static/logo.png"/>
+    </div>
+    <div class="mid">
+      <div class="create">
+        <p>:) Hello, RequestMeta 是 WebHook 调试利器. 您可以创建一个连接进行测试. 创建连接后可以通过浏览器, cURL, 编程代码的访问， 访问指定的 URL, RequestMeta 会为你保存请求的所有数据, 您可以回溯查看所有调用元信息. </p>
+        <div class="button" onclick="createNamespace()">✚ 创建测试空间  </div>
+      </div>
+      <div class="history">
+        <div style="font-weight: bold;">░ 历史纪录</div>
+        <div id="historys">无</div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+  <script>
+    function uuid4hex() {
+        const ho = (n, p) => n.toString(16).padStart(p, 0);
+        const view = new DataView(new ArrayBuffer(16));
+        crypto.getRandomValues(new Uint8Array(view.buffer));
+        view.setUint8(6, (view.getUint8(6) & 0xf) | 0x40); 
+        view.setUint8(8, (view.getUint8(8) & 0x3f) | 0x80);
+        return `${ho(view.getUint32(0), 8)}${ho(view.getUint16(4), 4)}${ho(view.getUint16(6), 4)}${ho(view.getUint16(8), 4)}${ho(view.getUint32(10), 8)}${ho(view.getUint16(14), 4)}`; /// Compile the canonical textual form from the array data
+    }
+
+    var store = {
+      fetch: function () {
+        return JSON.parse(
+          localStorage.getItem('namespaces') || '[]'
+        )
+      },
+
+      save: function (data) {
+        return localStorage.setItem('namespaces', JSON.stringify(data))
+      }
+    }
+
+    function createHistory () {
+      var historys = store.fetch()
+
+      $('#historys').html("");
+
+      if (historys.length === 0) {
+        $('#historys').html('<div class="meta"> :( 没有历史纪录, &nbsp;请创建测试空间</div>');
+      } else {
+        $('#historys').html('<div class="meta"> 最多保留最近的10个空间.</div>');
+      }
+
+      historys.forEach((history) => {
+        var $items = $('<a class="item" href="/' + history + '/inspect">' + history +  '</a>');
+
+        $('#historys').append($items)
+      })
+    }
+  
+    function createNamespace () {
+      var uuid = uuid4hex()
+      var historyNamespaces = store.fetch()
+
+      historyNamespaces.unshift(uuid)
+
+      store.save(historyNamespaces.slice(0, 10))
+
+      createHistory()
+
+      window.location = "/" + uuid + '/inspect'
+    }
+
+    createHistory()
+  </script>
+{% endblock %}

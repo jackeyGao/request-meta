@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %} {{ location }} | RequestMeta {% endblock %}
+
+{% block content %}
+  <a href="/" class="logo"><img src="/static/logo.png"></a>
+  <h3 class="location monospace" style="margin-top: 0;">{{ location }}</h3>
+  {% if not entrys %}
+  <div class="intro">
+      <p>测试空间已经创建. 通过浏览器或通过下面代码的形式访问 <a href="/{{ location }}"><span class="host"></span>/{{location}}</a> 后, 刷新这个页面就会显示接口调用的调试信息.</p>
+      {% include 'examples.html' %}
+    </div>
+    {% endif %}
+    {% for entry in entrys %}
+    <div class="entry-wrapper">
+      <div id="id-{{ entry.id }}" class="entry-header">
+        <a style="float: right; color: #fff5eb;" href="#id-{{ entry.id }}">∞</a>
+        <span class="id">#{{ entry.id }}</span> {{ entry.time }}
+      </div>
+      <div class="entry-meta">
+        <pre>{{ entry.data|tojson(indent=2) }}</pre>
+      </div>
+    </div> 
+    {% endfor %}
+  </div>
+{% endblock %}
+
+{% block footer %}
+  <script>
+    $('.host').html(window.location.protocol + '//' + window.location.hostname + ':' + location.port);
+  </script>
+{% endblock %}

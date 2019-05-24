@@ -1,0 +1,56 @@
+  <div class="code-wrapper">
+    <div class="language">cURL</div>
+    <pre class="code">curl -X POST -d "aa=aa" <span class="host"></span>/{{location}}</pre>
+  </div>
+
+  <div class="code-wrapper">
+    <div class="language">Python (with Requests)</div>
+    <pre class="code">import requests, time
+r = requests.post('<span class="host"></span>/{{location}}', data={"ts":time.time()})
+print r.status_code
+print r.content</pre>
+  </div>
+
+  <div class="code-wrapper">
+      <div class="language">Node.js (with request)</div>
+      <pre class="code">var request = require('request');
+var url ='<span class="host"></span>/{{location}}'
+request(url, function (error, response, body) {
+  if (!error) {
+    console.log(body);
+  }
+});</pre>
+  </div>
+
+  <div class="code-wrapper">
+      <div class="language">Ruby</div>
+      <pre class="code">require 'open-uri'
+result = open('<span class="host"></span>/{{location}}')
+result.lines { |f| f.each_line {|line| p line} }</pre>
+  </div>
+
+  <div class="code-wrapper">
+      <div class="language">Java</div>
+      <pre class="code">import org.apache.commons.httpclient.*;
+import org.apache.commons.httpclient.methods.*;
+import org.apache.commons.httpclient.params.HttpMethodParams;
+
+import java.io.*;
+
+public class RequestBinTutorial {
+  public static void main(String[] args) {
+    HttpClient client = new HttpClient();
+    GetMethod method = new GetMethod("<span class="host"></span>/{{location}}");
+    try {
+      int statusCode = client.executeMethod(method);
+      byte[] responseBody = method.getResponseBody();
+      System.out.println(new String(responseBody));
+    } catch (Exception e) {
+      System.err.println("Fatal error: " + e.getMessage());
+      e.printStackTrace();
+    } finally {
+      method.releaseConnection();
+    }
+  }
+}</pre>
+  </div>
