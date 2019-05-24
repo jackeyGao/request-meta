@@ -6,6 +6,7 @@ body, html {
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   height: 100%;
+  margin: 0;
   color: #404040;
 }
 
@@ -155,6 +156,27 @@ p {
   border: 1px solid #404040;
 }
 
+.github-corner:hover .octo-arm {
+  animation: octocat-wave 560ms ease-in-out
+}
+
+@keyframes octocat-wave {
+  0%,
+  100% {
+    transform: rotate(0)
+  }
+
+  20%,
+  60% {
+    transform: rotate(-25deg)
+  }
+
+  40%,
+  80% {
+    transform: rotate(10deg)
+  }
+}
+
 @media only screen and (max-width: 767px) {
   .index .mid .create {
     width: 100%;
@@ -185,7 +207,7 @@ p {
   }
 
   .ui.container {
-    margin-left: 0em!important;
-    margin-right: 0em!important;
+    margin-left: 8px!important;
+    margin-right: 8px!important;
   }
 }
