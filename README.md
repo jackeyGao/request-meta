@@ -7,7 +7,7 @@ Inspect HTTP Requests. Request-Meta is alternative of requestBin; Collect, inspe
 ## QuickStart 
 
 ```
-pip3 install requirements.txt
+pip3 install -r requirements.txt
 
 python3 server.py
 ```
