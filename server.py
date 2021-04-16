@@ -27,7 +27,7 @@ def __initalize_runserver__():
     logger.debug('Running on debug')
     logger.info('Database is ready')
 
-    api.run(address="0.0.0.0", debug=env=='DEBUG', logger=logger)
+    api.run(address="0.0.0.0", debug=env=='DEBUG')
 
 
 @api.route('/')
