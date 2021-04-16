@@ -14,18 +14,8 @@ __author__ = "JG (之及)"
 
 
 def __initalize_runserver__():
-    if env == 'DEBUG':
-        log_level = 'debug'
-    else:
-        log_level = 'info'
-
-    logger = logging.getLogger("uvicorn.access")
     db.connect()
     db.create_tables([Entry, ])
-
-    logger.debug('Running on debug')
-    logger.info('Database is ready')
-
     api.run(address="0.0.0.0", debug=env=='DEBUG')
 
 
@@ -44,7 +34,7 @@ async def inspect(req, resp, *, location):
     entrys = Entry.select().where(
         Entry.location==location
     ).order_by(Entry.time.desc())
-    
+
     resp.html = api.template('inspect.html', **locals())
 
 
