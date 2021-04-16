@@ -2,7 +2,6 @@ import os
 import json
 import responder
 import logging
-from uvicorn.config import get_logger
 from datetime import datetime
 from db import Entry, db
 
@@ -20,7 +19,7 @@ def __initalize_runserver__():
     else:
         log_level = 'info'
 
-    logger = get_logger(log_level)
+    logger = logging.getLogger("uvicorn.access")
     db.connect()
     db.create_tables([Entry, ])
 
