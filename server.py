@@ -1,7 +1,5 @@
 import os
-import json
 import responder
-import logging
 from datetime import datetime
 from db import Entry, db
 
@@ -16,7 +14,7 @@ __author__ = "JG (之及)"
 def __initalize_runserver__():
     db.connect()
     db.create_tables([Entry, ])
-    api.run(address="0.0.0.0", debug=env=='DEBUG')
+    api.run(address="0.0.0.0", debug=env=='DEBUG', workers=1)
 
 
 @api.route('/')
