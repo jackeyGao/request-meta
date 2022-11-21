@@ -1,4 +1,4 @@
-responder==2.0.7
+responder>=2.0.6,<=2.0.7
 uvicorn==0.13.2
 Click==7.0
 peewee==3.9.5
